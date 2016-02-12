@@ -128,3 +128,5 @@ var ics = function() {
         }
     };
 };
+
+module.exports = ics;
