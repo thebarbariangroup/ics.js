@@ -56,41 +56,15 @@ var ics = function() {
                 return false;
             };
 
-            //TODO add time and time zone? use moment to format?
-            var start_date = new Date(begin);
-            var end_date = new Date(stop);
-
-            var start_year = ("0000" + (start_date.getFullYear().toString())).slice(-4);
-            var start_month = ("00" + ((start_date.getMonth() + 1).toString())).slice(-2);
-            var start_day = ("00" + ((start_date.getDate()).toString())).slice(-2);
-            var start_hours = ("00" + (start_date.getHours().toString())).slice(-2);
-            var start_minutes = ("00" + (start_date.getMinutes().toString())).slice(-2);
-            var start_seconds = ("00" + (start_date.getMinutes().toString())).slice(-2);
-
-            var end_year = ("0000" + (end_date.getFullYear().toString())).slice(-4);
-            var end_month = ("00" + ((end_date.getMonth() + 1).toString())).slice(-2);
-            var end_day = ("00" + ((end_date.getDate()).toString())).slice(-2);
-            var end_hours = ("00" + (end_date.getHours().toString())).slice(-2);
-            var end_minutes = ("00" + (end_date.getMinutes().toString())).slice(-2);
-            var end_seconds = ("00" + (end_date.getMinutes().toString())).slice(-2);
-
-            // Since some calendars don't add 0 second events, we need to remove time if there is none...
-            var start_time = '';
-            var end_time = '';
-            if (start_minutes + start_seconds + end_minutes + end_seconds != 0) {
-                start_time = 'T' + start_hours + start_minutes + start_seconds;
-                end_time = 'T' + end_hours + end_minutes + end_seconds;
-            }
-
-            var start = start_year + start_month + start_day + start_time;
-            var end = end_year + end_month + end_day + end_time;
+            var start = begin.split('-').join('').split(':').join('').split('.').join('').slice(0, -4);
+            var end = stop.split('-').join('').split(':').join('').split('.').join('').slice(0, -4);
 
             var calendarEvent = [
                 'BEGIN:VEVENT',
                 'CLASS:PUBLIC',
                 'DESCRIPTION:' + description,
-                'DTSTART;VALUE=DATE:' + start,
-                'DTEND;VALUE=DATE:' + end,
+                'DTSTART;VALUE=DATE:' + start + 'Z',
+                'DTEND;VALUE=DATE:' + end + 'Z',
                 'LOCATION:' + location,
                 'SUMMARY;LANGUAGE=en-us:' + subject,
                 'TRANSP:TRANSPARENT',
