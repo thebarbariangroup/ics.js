@@ -91,7 +91,7 @@ var ics = function() {
 
             var blob;
             // if (navigator.userAgent.indexOf('MSIE 10') === -1) { // chrome or firefox
-                blob = new Blob([calendar]);
+            blob = new Blob([calendar], {type : 'text/calendar;charset=utf-8'});
             // } else { // ie
             //     var bb = new BlobBuilder();
             //     bb.append(calendar);
